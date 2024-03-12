@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         HidingPlus
-// @version      1.0.9+
+// @version      1.0.10+
 // @description  Sachen ausblenden
 // @author       Dynamiite + n0eL_1405
 // @include      *://leitstellenspiel.de/
@@ -30,7 +30,7 @@
     var nicht_freigegebene_eigene_einsatze = false;
     var verbands_fahrzeuge = true;
     var alle_verbands_missionen = true;
-    var beteiligte_Verbands_missionen = false;
+    var beteiligte_verbands_missionen = false;
     var alle_event_missionen = false;
     var beteiligte_event_missionen = false;
     /* END Configuration */
@@ -180,16 +180,16 @@
             .click(function(e){
                 alle_verbands_missionen = !alle_verbands_missionen;
                 if(alle_verbands_missionen)
-                    beteiligte_Verbands_missionen=false
+                    beteiligte_verbands_missionen=false
                 refreshthehidingbuttons()
                 mission_hide();
                 return false;
             });
-        button_class = (beteiligte_Verbands_missionen) ? "-":"+";
-        $('<a href="#" title="beteiligte_Verbands_missionen" id="hiding_beteiligte_Verbands_missionen"><span>'+button_class+'</span> Beteiligte Verbands Missionen </a>').appendTo($('#dropdown_hiding_settings_10'))
+        button_class = (beteiligte_verbands_missionen) ? "-":"+";
+        $('<a href="#" title="beteiligte_verbands_missionen" id="hiding_beteiligte_verbands_missionen"><span>'+button_class+'</span> Beteiligte Verbands Missionen </a>').appendTo($('#dropdown_hiding_settings_10'))
             .click(function(e){
-                beteiligte_Verbands_missionen = !beteiligte_Verbands_missionen;
-                if(beteiligte_Verbands_missionen)
+                beteiligte_verbands_missionen = !beteiligte_verbands_missionen;
+                if(beteiligte_verbands_missionen)
                     alle_verbands_missionen=false
                 refreshthehidingbuttons()
                 f_beteiligte_Verbands_missionen();
@@ -284,7 +284,7 @@
         eigene_gebaude ? $('#hiding_eigene_gebaude').find('span').text("-"): $('#hiding_eigene_gebaude').find('span').text("+");
         verbands_fahrzeuge ? $('#hiding_verbands_fahrzeuge').find('span').text("-"): $('#hiding_verbands_fahrzeuge').find('span').text("+");
         alle_verbands_missionen ? $('#hiding_alle_verbands_missionen').find('span').text("-"): $('#hiding_alle_verbands_missionen').find('span').text("+");
-        beteiligte_Verbands_missionen ? $('#hiding_beteiligte_Verbands_missionen').find('span').text("-"): $('#hiding_beteiligte_Verbands_missionen').find('span').text("+");
+        beteiligte_verbands_missionen ? $('#hiding_beteiligte_verbands_missionen').find('span').text("-"): $('#hiding_beteiligte_verbands_missionen').find('span').text("+");
         beteiligte_event_missionen ? $('#hiding_beteiligte_event_missionen').find('span').text("-"): $('#hiding_beteiligte_event_missionen').find('span').text("+");
         alle_event_missionen ? $('#hiding_alle_event_missionen').find('span').text("-"): $('#hiding_alle_event_missionen').find('span').text("+");
     }
@@ -332,7 +332,7 @@
                 map.removeLayer(mission_markers[i]);
             else if(alle_event_missionen && einsatzarray_alle_event_mission.some((substring)=>string_ids_id.includes(substring)))
                 map.removeLayer(mission_markers[i]);
-            else if(beteiligte_Verbands_missionen && einsatzarray_beteiligte_mission.some((substring)=>string_ids_id.includes(substring)))
+            else if(beteiligte_verbands_missionen && einsatzarray_beteiligte_mission.some((substring)=>string_ids_id.includes(substring)))
                 map.removeLayer(mission_markers[i]);
             else if(beteiligte_eigene_einsatze && einsatzarray_beteiligte_eigene_mission.some((substring)=>string_ids_id.includes(substring)))
                 map.removeLayer(mission_markers[i]);
@@ -346,10 +346,10 @@
         einsatzarray_beteiligte_mission=new Array()
         let einsatze = $('#mission_list_alliance .missionSideBarEntry.missionSideBarEntrySearchable').not('.mission_deleted')
         einsatze = $(einsatze).filter((e,t)=>$(t).find('.glyphicon-asterisk').hasClass('hidden'))
-        let geplante_einsatze = $('#mission_list_sicherheitswache .missionSideBarEntry.missionSideBarEntrySearchable').not('.mission_deleted')
+        let geplante_einsatze = $('#mission_list_sicherheitswache_alliance .missionSideBarEntry.missionSideBarEntrySearchable').not('.mission_deleted')
         geplante_einsatze = $(geplante_einsatze).filter((e,t)=>$(t).find('.glyphicon-asterisk').hasClass('hidden')&&($(t).find('.panel-heading').text().includes('[Verband]')||$(t).find('.panel-heading').text().includes('[Alliance]')))
         let einsatzarray=new Array()
-        if(beteiligte_Verbands_missionen){
+        if(beteiligte_verbands_missionen){
             $(einsatze).map((e,t)=>{
                 einsatzarray_beteiligte_mission.push($(t).attr('mission_id'));
                 $(t).addClass('beteiligte_Verbands_missionen_hiding');
