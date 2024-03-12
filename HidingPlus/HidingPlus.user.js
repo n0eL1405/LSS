@@ -346,7 +346,7 @@
         einsatzarray_beteiligte_mission=new Array()
         let einsatze = $('#mission_list_alliance .missionSideBarEntry.missionSideBarEntrySearchable').not('.mission_deleted')
         einsatze = $(einsatze).filter((e,t)=>$(t).find('.glyphicon-asterisk').hasClass('hidden'))
-        let geplante_einsatze = $('#mission_list_sicherheitswache .missionSideBarEntry.missionSideBarEntrySearchable').not('.mission_deleted')
+        let geplante_einsatze = $('#mission_list_sicherheitswache_alliance .missionSideBarEntry.missionSideBarEntrySearchable').not('.mission_deleted')
         geplante_einsatze = $(geplante_einsatze).filter((e,t)=>$(t).find('.glyphicon-asterisk').hasClass('hidden')&&($(t).find('.panel-heading').text().includes('[Verband]')||$(t).find('.panel-heading').text().includes('[Alliance]')))
         let einsatzarray=new Array()
         if(beteiligte_verbands_missionen){
