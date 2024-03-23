@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         HidingPlus
-// @version      1.0.10+
+// @version      1.0.11+
 // @description  Sachen ausblenden
 // @author       Dynamiite + n0eL_1405
 // @include      *://leitstellenspiel.de/
