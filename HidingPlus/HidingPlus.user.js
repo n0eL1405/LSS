@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         HidingPlus
-// @version      1.0.11+
+// @version      1.0.12+
 // @description  Sachen ausblenden
 // @author       Dynamiite + n0eL_1405
 // @include      *://leitstellenspiel.de/
@@ -220,6 +220,8 @@
     let missionMarkerOrig = missionMarkerAdd;
     missionMarkerAdd = (e) => {
         f_beteiligte_verbands_missionen();
+        if (beteiligte_event_missionen) f_beteiligte_verbands_missionen();
+        if (alle_event_missionen) f_alle_event_missionen();
         f_beteiligte_eigene_einsatze();
         if(alle_eigene_fahrzeuge||verbands_fahrzeuge||fahrzeuge_im_einsatz)fahrzeuge_hide();
         missionMarkerOrig(e);
@@ -228,6 +230,8 @@
         zoomend: function() {
             setTimeout(()=>{
                 f_beteiligte_verbands_missionen();
+                if (beteiligte_event_missionen) f_beteiligte_verbands_missionen();
+                if (alle_event_missionen) f_alle_event_missionen();
                 f_beteiligte_eigene_einsatze();
                 if(alle_eigene_fahrzeuge||verbands_fahrzeuge||fahrzeuge_im_einsatz)fahrzeuge_hide();
                 if(eigene_gebaude)f_eigene_gebaude();
@@ -236,6 +240,8 @@
         moveend: function() {
             setTimeout(()=>{
                 f_beteiligte_verbands_missionen();
+                if (beteiligte_event_missionen) f_beteiligte_verbands_missionen();
+                if (alle_event_missionen) f_alle_event_missionen();
                 f_beteiligte_eigene_einsatze();
                 if(alle_eigene_fahrzeuge||verbands_fahrzeuge||fahrzeuge_im_einsatz)fahrzeuge_hide();
                 if(eigene_gebaude)f_eigene_gebaude();
@@ -270,6 +276,8 @@
     radioMessage = function(t){
         //if(alle_eigene_fahrzeuge||verbands_fahrzeuge||fahrzeuge_im_einsatz)fahrzeuge_hide();
         f_beteiligte_verbands_missionen();
+        if (beteiligte_event_missionen) f_beteiligte_verbands_missionen();
+        if (alle_event_missionen) f_alle_event_missionen();
         f_beteiligte_eigene_einsatze();
         f_fahrzeuge_im_einsatz();
         radioMessageBuffer(t);
@@ -285,13 +293,15 @@
         verbands_fahrzeuge ? $('#hiding_verbands_fahrzeuge').find('span').text("-"): $('#hiding_verbands_fahrzeuge').find('span').text("+");
         alle_verbands_missionen ? $('#hiding_alle_verbands_missionen').find('span').text("-"): $('#hiding_alle_verbands_missionen').find('span').text("+");
         beteiligte_verbands_missionen ? $('#hiding_beteiligte_verbands_missionen').find('span').text("-"): $('#hiding_beteiligte_verbands_missionen').find('span').text("+");
-        beteiligte_event_missionen ? $('#hiding_beteiligte_event_missionen').find('span').text("-"): $('#hiding_beteiligte_event_missionen').find('span').text("+");
         alle_event_missionen ? $('#hiding_alle_event_missionen').find('span').text("-"): $('#hiding_alle_event_missionen').find('span').text("+");
+        beteiligte_event_missionen ? $('#hiding_beteiligte_event_missionen').find('span').text("-"): $('#hiding_beteiligte_event_missionen').find('span').text("+");
     }
     function check_intervall() {
         // wird alle 10 sekunden aufgerufen um alles auszublenden was durch die buttons gesetzt wurde
         //f_fahrzeuge_im_einsatz();
         f_beteiligte_verbands_missionen();
+        if (beteiligte_event_missionen) f_beteiligte_verbands_missionen();
+        if (alle_event_missionen) f_alle_event_missionen();
         fahrzeuge_hide()
         mission_hide()
         f_nicht_freigegebene_eigene_einsatze()
@@ -299,8 +309,6 @@
         f_beteiligte_eigene_einsatze();
         f_fahrzeuge_im_einsatz();
         if(eigene_gebaude)f_eigene_gebaude();
-        f_beteiligte_event_missionen()
-        f_alle_event_missionen()
     }
     function fahrzeuge_hide(){
         for (let i = vehicle_markers.length - 1; i >= 0; i--) {
