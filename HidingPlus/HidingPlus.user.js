@@ -18,7 +18,7 @@
 /* global $ */
 (function() {
     'use strict';
-    GM_addStyle(`.beteiligte_verbands_missionen_hiding{display:none !important;}`);
+    GM_addStyle(`.missionen_hiding{display:none !important;}`);
 
     /* Configuration */
     var eigene_gebaude = false;
@@ -112,8 +112,8 @@
                     freigegebene_eigene_einsatze=false
                     nicht_freigegebene_eigene_einsatze=false
                 }else{
-                    $('#mission_list .missionSideBarEntry.missionSideBarEntrySearchable').not('.mission_deleted').map((e,t)=>$(t).removeClass('beteiligte_verbands_missionen_hiding'))
-                    $('#mission_list_sicherheitswache .missionSideBarEntry.missionSideBarEntrySearchable').not('.mission_deleted').filter((e,t)=>!($(t).find('.panel-heading').text().includes('[Verband]')||$(t).find('.panel-heading').text().includes('[Alliance]'))).map((e,t)=>$(t).removeClass('beteiligte_verbands_missionen_hiding'))
+                    $('#mission_list .missionSideBarEntry.missionSideBarEntrySearchable').not('.mission_deleted').map((e,t)=>$(t).removeClass('missionen_hiding'))
+                    $('#mission_list_sicherheitswache .missionSideBarEntry.missionSideBarEntrySearchable').not('.mission_deleted').filter((e,t)=>!($(t).find('.panel-heading').text().includes('[Verband]')||$(t).find('.panel-heading').text().includes('[Alliance]'))).map((e,t)=>$(t).removeClass('missionen_hiding'))
                 }
                 refreshthehidingbuttons()
                 mission_hide();
@@ -352,17 +352,17 @@
         if(beteiligte_verbands_missionen){
             $(einsatze).map((e,t)=>{
                 einsatzarray_beteiligte_mission.push($(t).attr('mission_id'));
-                $(t).addClass('beteiligte_verbands_missionen_hiding');
+                $(t).addClass('missionen_hiding');
             })
             $(geplante_einsatze).map((e,t)=>{
                 einsatzarray_beteiligte_mission.push($(t).attr('mission_id'));
-                $(t).addClass('beteiligte_verbands_missionen_hiding');
+                $(t).addClass('missionen_hiding');
             })
             //let n_einsatzarray = $('#mission_list_sicherheitswache > .missionSideBarEntry').map((e,t)=>einsatzarray_beteiligte_mission.push($(t).attr('mission_id')));
         }
         else{
-            $(einsatze).map((e,t)=>$(t).removeClass('beteiligte_verbands_missionen_hiding'))
-            $(geplante_einsatze).map((e,t)=>$(t).removeClass('beteiligte_verbands_missionen_hiding'))
+            $(einsatze).map((e,t)=>$(t).removeClass('missionen_hiding'))
+            $(geplante_einsatze).map((e,t)=>$(t).removeClass('missionen_hiding'))
         }
         mission_hide()
     }
@@ -373,12 +373,12 @@
         if(beteiligte_event_missionen){
             $(einsatze).map((e,t)=>{
                 einsatzarray_beteiligte_event_mission.push($(t).attr('mission_id'));
-                $(t).addClass('beteiligte_event_missionen_hiding');
+                $(t).addClass('missionen_hiding');
             })
             //let n_einsatzarray = $('#mission_list_sicherheitswache > .missionSideBarEntry').map((e,t)=>einsatzarray_beteiligte_mission.push($(t).attr('mission_id')));
         }
         else{
-            $(einsatze).map((e,t)=>$(t).removeClass('beteiligte_event_missionen_hiding'))
+            $(einsatze).map((e,t)=>$(t).removeClass('missionen_hiding'))
         }
         mission_hide()
     }
@@ -388,12 +388,12 @@
         if(alle_event_missionen){
             $(einsatze).map((e,t)=>{
                 einsatzarray_alle_event_mission.push($(t).attr('mission_id'));
-                $(t).addClass('alle_event_missionen_hiding');
+                $(t).addClass('missionen_hiding');
             })
             //let n_einsatzarray = $('#mission_list_sicherheitswache > .missionSideBarEntry').map((e,t)=>einsatzarray_beteiligte_mission.push($(t).attr('mission_id')));
         }
         else{
-            $(einsatze).map((e,t)=>$(t).removeClass('alle_event_missionen_hiding'))
+            $(einsatze).map((e,t)=>$(t).removeClass('missionen_hiding'))
         }
         mission_hide()
     }
@@ -405,25 +405,25 @@
             einsatze.map((e,t)=>{
                 if($(t).children().hasClass('panel-success')){
                     einsatzarray_freigegebene_eigene_mission.push($(t).attr('mission_id'));
-                    $(t).addClass('beteiligte_verbands_missionen_hiding');
+                    $(t).addClass('missionen_hiding');
                 }else
-                    $(t).removeClass('beteiligte_verbands_missionen_hiding')
+                    $(t).removeClass('missionen_hiding')
             })
             geplante_einsatze.map((e,t)=>{
                 if($(t).children().hasClass('panel-success')){
                     einsatzarray_freigegebene_eigene_mission.push($(t).attr('mission_id'));
-                    $(t).addClass('beteiligte_verbands_missionen_hiding');
+                    $(t).addClass('missionen_hiding');
                 }else
-                    $(t).removeClass('beteiligte_verbands_missionen_hiding')
+                    $(t).removeClass('missionen_hiding')
             })
         }else{
             einsatze.map((e,t)=>{
                 if($(t).children().hasClass('panel-success'))
-                    $(t).removeClass('beteiligte_verbands_missionen_hiding')
+                    $(t).removeClass('missionen_hiding')
             })
             geplante_einsatze.map((e,t)=>{
                 if($(t).children().hasClass('panel-success'))
-                    $(t).removeClass('beteiligte_verbands_missionen_hiding')
+                    $(t).removeClass('missionen_hiding')
             })
         }
         mission_hide()
@@ -433,29 +433,29 @@
         let einsatze = $('#mission_list .missionSideBarEntry.missionSideBarEntrySearchable').not('.mission_deleted')
         let geplante_einsatze = $('#mission_list_sicherheitswache_alliance .missionSideBarEntry.missionSideBarEntrySearchable').not('.mission_deleted').filter((e,t)=>!($(t).find('.panel-heading').text().includes('[Verband]')||$(t).find('.panel-heading').text().includes('[Alliance]')))
         if(nicht_freigegebene_eigene_einsatze){
-//             andere_einsatze.map((e,t)=>$(t).removeClass('beteiligte_verbands_missionen_hiding'))
+//             andere_einsatze.map((e,t)=>$(t).removeClass('missionen_hiding'))
             einsatze.map((e,t)=>{
                 if(!$(t).children().hasClass('panel-success')){
                     einsatzarray_nicht_freigegebene_eigene_mission.push($(t).attr('mission_id'));
-                    $(t).addClass('beteiligte_verbands_missionen_hiding');
+                    $(t).addClass('missionen_hiding');
                 }else
-                    $(t).removeClass('beteiligte_verbands_missionen_hiding')
+                    $(t).removeClass('missionen_hiding')
             })
             geplante_einsatze.map((e,t)=>{
                 if(!$(t).children().hasClass('panel-success')){
                     einsatzarray_nicht_freigegebene_eigene_mission.push($(t).attr('mission_id'));
-                    $(t).addClass('beteiligte_verbands_missionen_hiding');
+                    $(t).addClass('missionen_hiding');
                 }else
-                    $(t).removeClass('beteiligte_verbands_missionen_hiding')
+                    $(t).removeClass('missionen_hiding')
             })
         }else{
             einsatze.map((e,t)=>{
                 if(!$(t).children().hasClass('panel-success'))
-                    $(t).removeClass('beteiligte_verbands_missionen_hiding')
+                    $(t).removeClass('missionen_hiding')
             })
             geplante_einsatze.map((e,t)=>{
                 if(!$(t).children().hasClass('panel-success'))
-                    $(t).removeClass('beteiligte_verbands_missionen_hiding')
+                    $(t).removeClass('missionen_hiding')
             })
         }
         mission_hide()
@@ -471,17 +471,17 @@
         if(beteiligte_eigene_einsatze){
             $(einsatze).map((e,t)=>{
                 einsatzarray_beteiligte_eigene_mission.push($(t).attr('mission_id'));
-                $(t).addClass('beteiligte_verbands_missionen_hiding');
+                $(t).addClass('missionen_hiding');
             })
             $(geplante_einsatze).map((e,t)=>{
                 einsatzarray_beteiligte_eigene_mission.push($(t).attr('mission_id'));
-                $(t).addClass('beteiligte_verbands_missionen_hiding');
+                $(t).addClass('missionen_hiding');
             })
             //let n_einsatzarray = $('#mission_list_sicherheitswache > .missionSideBarEntry').map((e,t)=>einsatzarray_beteiligte_eigene_mission.push($(t).attr('mission_id')));
         }
         else if(!nicht_freigegebene_eigene_einsatze&&!freigegebene_eigene_einsatze){
-            $(einsatze).map((e,t)=>$(t).removeClass('beteiligte_verbands_missionen_hiding'))
-            $(geplante_einsatze).map((e,t)=>$(t).removeClass('beteiligte_verbands_missionen_hiding'))
+            $(einsatze).map((e,t)=>$(t).removeClass('missionen_hiding'))
+            $(geplante_einsatze).map((e,t)=>$(t).removeClass('missionen_hiding'))
         }
         mission_hide()
     }
