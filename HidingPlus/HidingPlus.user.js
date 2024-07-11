@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         HidingPlus
-// @version      1.0.14+
+// @version      1.0.15+
 // @description  Sachen ausblenden
 // @author       Dynamiite + n0eL_1405
 // @match      *://leitstellenspiel.de/
@@ -345,17 +345,24 @@
 
     function fahrzeuge_hide() {
         for (let i = vehicle_markers.length - 1; i >= 0; i--) {
-            let string = vehicle_markers[i]._tooltip._content;
-            let string_ids_out = vehicle_markers[i].vehicle_id.toString();
-            if (alle_eigene_fahrzeuge && !filter.some(substring => string.includes(substring)))
-                map.removeLayer(vehicle_markers[i])
-            else if (verbands_fahrzeuge && filter.some(substring => string.includes(substring)))
-                map.removeLayer(vehicle_markers[i]);
-            else if (fahrzeuge_im_einsatz && einsatzarray_vehicle.some((substring) => string_ids_out.includes(substring.toString())))
-                map.removeLayer(vehicle_markers[i]);
-            else {
-                if (!vehicle_markers[i].vehicle_marker_deleted)
-                    map.addLayer(vehicle_markers[i]);
+            let vehicle_marker = vehicle_markers[i]
+            let string = vehicle_marker._tooltip._content;
+            let string_ids_out = vehicle_marker.vehicle_id.toString();
+
+            if (alle_eigene_fahrzeuge && !filter.some(substring => string.includes(substring))) {
+                vehicle_marker.polyline.setStyle({opacity: 0});
+                map.removeLayer(vehicle_marker);
+            } else if (verbands_fahrzeuge && filter.some(substring => string.includes(substring))) {
+                vehicle_marker.polyline.setStyle({opacity: 0});
+                map.removeLayer(vehicle_marker);
+            } else if (fahrzeuge_im_einsatz && einsatzarray_vehicle.some((substring) => string_ids_out.includes(substring.toString()))) {
+                vehicle_marker.polyline.setStyle({opacity: 0});
+                map.removeLayer(vehicle_marker);
+            } else {
+                if (!vehicle_marker.vehicle_marker_deleted) {
+                    map.addLayer(vehicle_marker);
+                    vehicle_marker.polyline.setStyle({opacity: 1});
+                }
             }
         }
     }
@@ -364,6 +371,7 @@
         for (let i = mission_markers.length - 1; i >= 0; i--) {
             let string = mission_markers[i]._tooltip._content;
             let string_ids_id = mission_markers[i].mission_id.toString();
+
             if (alle_eigene_missionen && !filter.some(substring => string.includes(substring)))
                 map.removeLayer(mission_markers[i]);
             else if (freigegebene_eigene_einsatze && einsatzarray_freigegebene_eigene_mission.some((substring) => string_ids_id.includes(substring)))
